@@ -15,11 +15,6 @@ ipsfile = 'collection.txt'
 ipsColoFile = 'collection_colo.txt'
 AREA = {'移动': 'CMCC', '联通': 'CU', '电信': 'CT'}
 ips = {}
-if os.path.isfile(ipsfile):
-    os.remove(ipsfile)
-if os.path.isfile(ipsColoFile):
-    os.remove(ipsColoFile)
-
 
 def extract_ips(text):
     # IPv4: 严格 0-255
@@ -67,7 +62,7 @@ def extract_ips(text):
     }
 
 
-for i, url in enumerate(urls):
+for url in urls:
     try:
         res = requests.get(url, headers=HEADERS)
         res.raise_for_status()
@@ -95,6 +90,10 @@ for i, url in enumerate(urls):
         print(f'Error occur when request {url}')
         print(repr(e))
 if ips.keys():
+    if os.path.isfile(ipsfile):
+        os.remove(ipsfile)
+    if os.path.isfile(ipsColoFile):
+        os.remove(ipsColoFile)
     try:
         with open(ipsfile, 'w', encoding='utf-8') as ipfile:
             for ip in ips:
