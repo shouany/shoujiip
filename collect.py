@@ -88,7 +88,9 @@ for i, url in enumerate(urls):
             if pos[2] is not None:
                 colo = tds[pos[2]].get_text().strip()
             if ip:
-                ips.update({ip: [line, colo]})
+                templist = ips.get(ip,['',''])
+                temp = {ip:[line or templist[0], colo or templist[1]]}
+                ips.update(temp)
     except Exception as e:
         print(f'Error occur when request {url}')
         print(repr(e))
