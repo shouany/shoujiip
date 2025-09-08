@@ -57,7 +57,7 @@ def extract_ips(text):
         ){ZONE_ID}(?![A-Fa-f0-9:])
     '''
     ipv4_matches = re.findall(IPV4, text)
-    ipv6_matches = [m[0] if isinstance(m, tuple) else m for m in re.findall(IPV6, text,  re.IGNORECASE | re.VERBOSE)]
+    ipv6_matches = [f'[{m[0]}]' if isinstance(m, tuple) else f'[{m}]' for m in re.findall(IPV6, text,  re.IGNORECASE | re.VERBOSE)]
     # ipv6_pattern = re.compile(IPV6, re.IGNORECASE | re.VERBOSE)
     # ipv6_matches = [m.group(0) for m in ipv6_pattern.finditer(text)]
 
